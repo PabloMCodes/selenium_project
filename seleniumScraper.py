@@ -43,7 +43,28 @@ time.sleep(1)
 #clicks the 'More Transactions' button
 moreTransacButton = driver.find_element(By.CSS_SELECTOR, "[data-testid='view-more-transactions-button-text']")
 moreTransacButton.click()
-time.sleep(5)
+time.sleep(14)
+
+# Gets a list of all iframes on the page
+#iframes = driver.find_elements("tag name", "iframe")
+#print(f"Found {len(iframes)} iframes")
+
+# Prints out iframe's attributes to help identify
+#for index, iframe in enumerate(iframes):
+   # print(f"Iframe {index}: {iframe.get_attribute('title')}")
+
+
+# scrolling the #root element
+#scrollable_container = driver.find_element(By.CSS_SELECTOR, "#root")
+#driver.execute_script("arguments[0].scrollTop += 500;", scrollable_container)
+#time.sleep(2)  # Wait to observe the effect
+
+# Find an element further down on the page
+#element_to_scroll_to = driver.find_element(By.CSS_SELECTOR, "footer")
+#driver.execute_script("arguments[0].scrollIntoView();", element_to_scroll_to)
+#time.sleep(2)  # Wait to observe the effect
+
+
 
 # collects and filters transaction texts that start with '+'
 transactions = driver.find_elements(By.CSS_SELECTOR, "[data-testid='transactions-list-item-amount']")
@@ -55,6 +76,19 @@ for transaction in transactions:
 
 # Print collected transaction texts
 print(transactionTexts)
+
+transactionNums = []
+avg = 0
+
+for transaction in transactionTexts:
+    transaction = transaction[2:]
+    transaction = float(transaction)
+    transactionNums.append(transaction)
+
+avg = sum(transactionNums) / len(transactionNums)
+
+print(f"You have been averaging: ${avg} in tips every shift")
+
 
 # closes the browser
 driver.quit()
